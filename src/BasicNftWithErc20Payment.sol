@@ -12,16 +12,13 @@ contract BasicNft is ERC721, Ownable {
     mapping(uint256 => string) private s_tokenIdToUri;
 
     IERC20 public immutable paymentToken;
-    uint256 public mintPrice; // USDC smallest units (6 decimals)
+    uint256 public mintPrice; // USDC smallest unit (6 decimals)
 
     error PaymentFailed();
     error WithdrawFailed();
     error NoFunds();
 
-    constructor(
-        address _paymentToken,
-        uint256 _mintPrice
-    ) ERC721("dogie", "DOG") Ownable(msg.sender) {
+    constructor(address _paymentToken, uint256 _mintPrice) ERC721("dogie", "DOG") Ownable(msg.sender) {
         paymentToken = IERC20(_paymentToken);
         mintPrice = _mintPrice;
     }
@@ -54,9 +51,7 @@ contract BasicNft is ERC721, Ownable {
         }
     }
 
-    function tokenURI(
-        uint256 tokenId
-    ) public view override returns (string memory) {
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
         return s_tokenIdToUri[tokenId];
     }
 }
